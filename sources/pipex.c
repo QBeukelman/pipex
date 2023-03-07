@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/04 16:43:18 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/03/07 10:58:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2023/03/07 12:21:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,26 @@
 
 /*
 
-*	    infile                                             outfile
-*	as stdin for cmd1                                 as stdout for cmd2           
-*	       |                        PIPE                        ↑
-*	       |           |---------------------------|            |
-*	       ↓             |                       |              |
-*	      cmd1   -->    end[1]       ↔       end[0]   -->     cmd2           
-*	                     |                       |
-*	            cmd1   |---------------------------|  end[0]
-*	           output                             reads end[1]
-*	         is written                          and sends cmd1
-*	          to end[1]                          output to cmd2
-*	       (end[1] becomes                      (end[0] becomes 
-*	        cmd1 stdout)                           cmd2 stdin)
+*		┌────────┐
+*		|  pipe  |
+*		└───┬────┘
+*			|
+*		┌───┴────┐
+*		| fork() |
+*		└───┬────┘
+*			|
+*		┌───┴────┐			┌────────┐
+*		| child  |			| parent |
+*		| cmd1   |			| cmd2   |
+*		└───┬────┘			└───┬────┘
+*			|					|
+*			dup2()				dup2()
+*			|					|
+*			close				close
+*			end[0]				end[1]
+*			|					|
+*			execve()			execve()
+*			(cmd1)				(cmd2)
 		
 Read from infile, execute cmd1 with infile as input, send the output to cmd2, 
 which will write to outfile. 
