@@ -40,16 +40,27 @@ This will execute the two commands cmd1 and cmd2 with the input from infile and 
 Here are some examples of how to use Pipex:
 
 ```bash
-./pipex test_files/infile cat grep hello test_files/outfile
+// Count occurances of "Hamlet"
+./pipex test_files/infile "grep Hamlet" "wc" test_files/outfile
+
+// Create outfile
+./pipex test_files/infile "grep Hamlet" "wc" NEW_OUTFILE
 ```
 
-This will execute the commands cat file1 and grep hello with the input from file1 and output to file2. The output of cat file1 will be used as input for grep hello.
+This will execute the commands grep Hamlet and wc with the input from test_files/infile and output to test_files/outfile. The output of grep test_files/infile will be used as input for wc, and written to test_files/outfile, which is created if it does not exist.
+
+Examples of errors include:
 
 ```bash
-./pipex test_files/infile "grep hello" "wc -w" test_files/outfile
-```
+// Invalid number of arguments
+./pipex 1 2 3
 
-This will execute the commands grep hello and wc -w with the input from file1 and output to file2. The output of grep hello will be used as input for wc -w, and the here document will simulate input from the user.
+// Invalid infile
+./pipex INVALID_FILE "grep Hamlet" "wc" test_files/outfile
+
+// Invalid command
+./pipex test_files/infile "INVALID COMMAND" "wc" test_files/outfile
+```
 
 ---
 
@@ -58,7 +69,6 @@ This will execute the commands grep hello and wc -w with the input from file1 an
 
 
 # About the program
-
 
 
 ```mermaid
