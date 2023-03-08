@@ -47,7 +47,7 @@ Here are some examples of how to use Pipex:
 ./pipex test_files/infile "grep Hamlet" "wc" NEW_OUTFILE
 ```
 
-This will execute the commands `grep Hamlet` and `wc` with the input from `test_files/infile` and output to `test_files/outfile`. The output of `grep` `test_files/infile` will be used as input for `wc`, and written to t`est_files/outfile`, which is created if it does not exist.
+This will execute the commands `grep Hamlet` and `wc` with the input from `test_files/infile` and output to `test_files/outfile`. The output of `grep` `test_files/infile` will be used as input for `wc`, and written to `test_files/outfile`, which is created if it does not exist.
 
 Examples of errors include:
 
