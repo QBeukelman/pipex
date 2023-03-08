@@ -27,7 +27,7 @@ The basic usage of Pipex is as follows:
 ./pipex test_files/infile cmd1 cmd2 test_files/outfile
 ```
 
-This will execute the two commands `cmd1` and `cmd2` with the input from `infile` and output to `outfile`. The output of `cmd1` will be used as input for `cmd2`.
+This will execute the two commands `cmd1` and `cmd2` with the input from `infile` and output to `outfile`. The output of `cmd1` will be used as input for `cmd2`. 
 
 ---
 
