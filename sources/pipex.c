@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/04 16:43:18 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/03/07 12:21:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2023/03/09 11:33:51 by qbeukelm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,37 @@
 Read from infile, execute cmd1 with infile as input, send the output to cmd2, 
 which will write to outfile. 
 
-pipe() sends the output of the first execve() as input to the second execve(); 
-fork() runs two processes (i.e. two commands) in one single program; 
-dup2() swaps our files with stdin and stdout. 
+*	pipe() 		A scuessfull call to pipe() returns two open file descriptors, each
+*				for read[0] and write[1] ends of the pipe. Simply put, a pipe allows
+*				communication between two processes. Sends the output of the first 
+*				execve() as input to the second execve().
+
+*	fork()		Allows one process, the parent, to create a new process, the child.
+*				After fork has completed its work, two processess exist, in each,
+*				exicution continues from the point where fork returns. Each process
+*				has seperate copies of the stack, data and heap.
+*					fork() = 0 -> Child process
+*					fork() > 0 -> Parent process
+
+*	dup2()	 	Makes a duplicate of the file sedcriptor given in oldfd, using the
+*				descriptor number supplied in newfd. A successful dup2() return the 
+*				number of duplicate discriptor. In this case, dup2() is used to swaps
+*				our files with stdin and stdout.
+
+*	waitpid()	Wait for the child to terminate. If no child of the calling process
+*				has yet terminated, the call blocks untill one of the children 
+*				terminates. If a child has already terminated by the time of the 
+*				call, wait() returns immediatly. This pid argument enables the 
+*				selection of the child to be waited for. If pid is 0, wait or 
+*				any child in the same process group as the caller, 'parent'.
+
+*	execve()	Load a new program with params, (pathname, argv, envp), into a 
+*				processes memory. The stack, data and heap are freshly created 
+*				for the program.
+
+*	envp		Specifies the environment list for the new program. It is a 
+*				NULL turminated list of pointers to character strings that 
+*				form name=value.
 
 */
 
