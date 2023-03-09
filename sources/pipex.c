@@ -38,7 +38,7 @@
 Read from infile, execute cmd1 with infile as input, send the output to cmd2, 
 which will write to outfile. 
 
-*	pipe() 		A scuessfull call to pipe() returns two open file descriptors, each
+*	pipe() 		A successful call to pipe() returns two open file descriptors, each
 *				for read[0] and write[1] ends of the pipe. Simply put, a pipe allows
 *				communication between two processes. Sends the output of the first 
 *				execve() as input to the second execve().
@@ -105,7 +105,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pipe(pipex.tube) < 0)
 		ft_error_message(ERROR_PIPE);
 	pipex.paths = find_path(envp);
-	pipex.cmd_paths = ft_split(pipex.paths, ':');
+	pipex.cmd_paths = ft_split(pipex.paths, ':'); // Protect
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
 		first_child(pipex, argv, envp);
